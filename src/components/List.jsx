@@ -1,24 +1,14 @@
-// List.js
 import React from "react";
 
-function List({ items, setItems }) {
-    function deleteItem(index) {
-        setItems((prevItems) => {
-            return prevItems.filter((item, i) => i !== index);
-        });
-    }
-
+function List(props) {
     return (
-        <ul>
-            {items.map((todoItem, index) => {
-                return (
-                    <li key={index}>
-                        {todoItem} <span> </span>
-                        <button onClick={() => deleteItem(index)}>X</button>
-                    </li>
-                );
-            })}
-        </ul>
+        <div
+            onClick={() => {
+                props.onChecked(props.id);
+            }}
+        >
+            <li>{props.text}</li>
+        </div>
     );
 }
 
