@@ -1,27 +1,12 @@
-import React, {useState} from "react";
+// App.js
+import React, { useState } from "react";
+import Input from "./Input";
+import ButtonAddItem from "./ButtonAddItem";
+import List from "./List";
 
 function App() {
-
-    const[inputText, setInputText] = useState("");
-    const[items, setItems] = useState([]);
-
-    function handleChange(event){
-        const newValue = event.target.value;
-        setInputText(newValue);
-    }
-
-    function addItem(){
-        setItems((prevItems) =>{
-            return[...prevItems, inputText]
-        })
-        setInputText("");
-    }
-
-    function deleteItem(index) {
-        setItems((prevItems) => {
-            return prevItems.filter((item, i) => i !== index);
-        });
-    }
+    const [items, setItems] = useState([]);
+    const [inputText, setInputText] = useState("");
 
     return (
         <div className="container">
@@ -29,22 +14,16 @@ function App() {
                 <h1>To-Do List</h1>
             </div>
             <div className="form">
-                <input onChange={handleChange} type="text" value={inputText}/>
-                <button onClick={addItem}>
-                    <span>Add</span>
-                </button>
+                <Input inputText={inputText} setInputText={setInputText} />
+                <ButtonAddItem
+                    inputText={inputText}
+                    setInputText={setInputText}
+                    items={items}
+                    setItems={setItems}
+                />
             </div>
             <div>
-                <ul>
-                    {items.map((todoItem, index) => {
-                        return (
-                            <li key={index}>
-                                {todoItem} <span>  </span>
-                                <button onClick={() => deleteItem(index)}>X</button>
-                            </li>
-                        );
-                    })}
-                </ul>
+                <List items={items} setItems={setItems} />
             </div>
         </div>
     );
